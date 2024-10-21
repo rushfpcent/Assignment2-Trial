@@ -16,7 +16,7 @@ import "../css/styles.css";
             <img src="/logo1.png" alt="Logo" className="logo" />   My Portfolio
             </h1>
             <nav>
-                <Link to="/">Home</Link> | <Link to="/about">About</Link> | <Link to="/services">Services </Link>| <Link to="/project">Projects </Link>| <Link to="/contact">Contact</Link>
+                <Link to="/home">Home</Link> | <Link to="/about">About</Link> | <Link to="/services">Services </Link>| <Link to="/project">Projects </Link>| <Link to="/contact">Contact</Link>
             </nav>
             <br/><br/>
             <hr />

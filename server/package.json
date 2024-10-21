@@ -1,0 +1,23 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "server file",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@babel/core": "^7.25.8",
+    "@babel/preset-env": "^7.25.8",
+    "babel-loader": "^9.2.1",
+    "concurrently": "^9.0.1",
+    "express": "4.21.1"
+  },
+  "keywords": [
+    "node",
+    "express"
+  ],
+  "author": "Soroush",
+  "license": "ISC"
+}
