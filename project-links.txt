@@ -1,2 +1,1 @@
-https://soroush-fazelpour.netlify.app/ - Live deployment
 https://github.com/rushfpcent/Assignment2-Trial - GitHub Repository
