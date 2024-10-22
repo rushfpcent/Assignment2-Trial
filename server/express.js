@@ -7,19 +7,22 @@ const cors = require('cors')
 const helmet = require('helmet')
 const bodyParser = require('body-parser')
 const assetsRouter = require('./asset-router')
+const userRoutes = require('./routes/User')
+const contactRoutes = require('./routes/Contact')
 const app = express()
 
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended:true}))
+app.use(cookieParser())
+app.use(compress())
+app.use(helmet())
+app.use(cors())
+
 //Server static file
+app.use('/api/users', userRoutes);
+app.use('/api/contacts', contactRoutes);
 app.use("/",express.static(path.join(__dirname,"public")))
 app.use("/src",assetsRouter);
-
-//API endpoint
-app.get('/api/v1', function (req, res) {
-    res.json({
-        project:"React Project",
-        from:"COMP229"
-    });
-});
 
 //Extract routes from React/Client
 app.get('/*', function (req,res) {
@@ -33,12 +36,5 @@ app.get('/about', function (req, res) {
 app.get('/home', function (req, res) {
     res.send('{"message":"Welcome to DressStore application."} - Soroush Fazel-Pour')
 });
-
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended:true}))
-app.use(cookieParser())
-app.use(compress())
-app.use(helmet())
-app.use(cors())
 
 module.exports = app;

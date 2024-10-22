@@ -1,4 +1,6 @@
 const mongoose = require('mongoose')
+const bcrypt = require('bcrypt')
+
 const UserSchema = new mongoose.Schema({
     name:{
         type:String,
@@ -9,7 +11,7 @@ const UserSchema = new mongoose.Schema({
         type:String,
         trim:true,
         unique:"Email already exists",
-        match:[/.+\@.\..+/,'Please enter valid email'],
+        match:[/^\S+@\S+\.\S+$/,'Please enter valid email'],
         required:"Email is required",
     },
     created:{
@@ -25,18 +27,20 @@ const UserSchema = new mongoose.Schema({
         required:'Password is required',
     },
     salt:String
-})
+}, {timestamps:true})
+
 UserSchema.virtual('password')
 .set(function(password){
     this._password = password;
-    this.hashed_passwords = password; 
+    this.salt = bcrypt.genSaltSync(10);
+    this.hashed_passwords = bcrypt.hashSync(password, this.salt); 
 })
 .get(function(){
     return this._password;
 });
 
-UserSchema.path('hashed_password').validate(function(v){
-    if(this._password && this._password < 8) {
+UserSchema.path('hashed_passwords').validate(function(v){
+    if(this._password && this._password.length < 8) {
         this.invalidate('password', 'Password should be > 8 characters')
     }
     if(this.isNew && !this._password) {
